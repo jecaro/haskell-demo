@@ -9,10 +9,14 @@
         pkgs.mkShell {
           buildInputs = [
             pkgs.ghcid
-            pkgs.haskellPackages.cabal-install
-            pkgs.haskellPackages.haskell-language-server
-            pkgs.haskellPackages.hlint
-            pkgs.haskellPackages.implicit-hie
+            (pkgs.haskellPackages.ghcWithPackages (pkgs_: with pkgs_;
+            [
+              # lens
+              cabal-install
+              haskell-language-server
+              hlint
+              implicit-hie
+            ]))
           ];
           # Change the prompt to show that you are in a devShell
           shellHook = "export PS1='\\[\\e[1;34m\\]dev > \\[\\e[0m\\]'";
